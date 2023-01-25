@@ -1,0 +1,99 @@
+; specific numbering (starting from 1000) to recognize states in the Z3-get-model-output
+(declare-fun InitState () Int)
+(declare-fun MaxState () Int)
+(assert (= InitState 1000))
+(assert (= MaxState 1009))
+
+; A(1003,1005,"a"): there is a (single) transition from 1003 to 1005 with label "a"
+(declare-fun A (Int Int String) Bool)
+
+; F(1008): 1008 is a final state
+(declare-fun F (Int) Bool)
+
+; Head("abcdef") = "abcde"
+; Tail("abcdef") = "f"
+(define-fun Head ((x!0 String)) String (str.substr x!0 0 (- (str.len x!0) 1)))
+(define-fun Tail ((x!0 String)) String (str.at x!0 (- (str.len x!0) 1)))
+
+; B(1006,"abc"): there is a path from InitState to 1006 for "abc"
+; BViaState(1004,1006,"abc"): for "abc" there is a path from InitState via 1004 to 1006 (with a single transition between 1004 and 1006)
+; BRecursive(1004,1006,"abc"): for "abc" there is a path from InitState via a state <= 1004 to 1006 (with a single transition between <=1004 and 1006)
+(define-funs-rec 
+	(
+		(B ((x!0 Int) (x!1 String)) Bool )
+		(BRecursive ((x!0 Int) (x!1 Int) (x!2 String)) Bool)
+		(BViaState ((x!0 Int) (x!1 Int) (x!2 String)) Bool)
+	)
+	(
+		; function B:
+		(ite (= (str.len x!1) 0) 
+			(= x!0 InitState)
+			(BRecursive MaxState x!0 x!1)
+		)
+		; function BRecursive:
+		(ite (< x!0 InitState) false
+			(or (BViaState x!0 x!1 x!2)
+				(BRecursive (- x!0 1) x!1 x!2))
+		)
+		; function BViaState:
+		(and (B x!0 (Head x!2))
+			 (A x!0 x!1 (Tail x!2)))
+; as given in Z3's output...:
+;		(not (or (not (B x!0 (Head x!2)))
+;			     (not (A x!0 x!1 (Tail x!2)))))
+	)
+)
+
+; AcceptOnState(1005,"abc"): "abc" is accepted in state 1005
+; in other words: there is a path from InitState to 1005, and 1005 is a final state
+(define-fun AcceptOnState ((x!0 Int) (x!1 String)) Bool 
+	(and (B x!0 x!1) (F x!0))
+)
+; AcceptRecursive(1005,"abc"): "abc" is accepted in one of the states InitState..1005
+(define-fun-rec AcceptRecursive ((x!0 Int) (x!1 String)) Bool
+	(ite (< x!0 InitState) false
+		(or (AcceptOnState x!0 x!1)
+			(AcceptRecursive (- x!0 1) x!1)))
+)
+(define-fun Accept ((x!0 String)) Bool
+	(AcceptRecursive MaxState x!0)
+)
+
+; z3's output of F() (or its sub-functions like F!7) is (sometimes) difficult to parse (to generate a graphviz picture)
+; workaround: collect all final states in a string (which needs to be stripped by the parser-backend)
+(declare-const FinalStates String)
+(define-fun-rec FinalRecursive((x!0 Int)) String
+	(ite (> x!0 MaxState) 
+		"end"
+		(ite (F x!0) 		; check if x!0 is indeed a final state
+			(str.++ (int.to.str x!0) ":" (FinalRecursive (+ x!0 1)))	
+			(str.++ (FinalRecursive (+ x!0 1)))))
+)
+(assert (= FinalStates (FinalRecursive InitState)))
+
+
+(assert (and
+
+(Accept "aa")
+(Accept "aba")
+(Accept "baa")
+(Accept "abab")
+(Accept "babb")
+(not (Accept ""))
+(not (Accept "a"))
+(not (Accept "b"))
+(not (Accept "ab"))
+(not (Accept "ba"))
+(not (Accept "bb"))
+(not (Accept "aaa"))
+(not (Accept "aab"))
+(not (Accept "abb"))
+(not (Accept "bab"))
+(not (Accept "bba"))
+(not (Accept "bbb"))
+
+))
+
+(check-sat)
+(get-model)
+

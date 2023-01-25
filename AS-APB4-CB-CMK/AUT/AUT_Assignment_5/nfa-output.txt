@@ -1,0 +1,24 @@
+sat
+(
+  (define-fun InitState () Int
+    1000)
+  (define-fun MaxState () Int
+    1009)
+  (define-fun FinalStates () String
+    "1003:end")
+  (define-fun F ((x!0 Int)) Bool
+    (ite (= x!0 1003) true
+      false))
+  (define-fun A ((x!0 Int) (x!1 Int) (x!2 String)) Bool
+    (ite (and (= x!0 1000) (= x!1 1008) (= x!2 "a")) true
+    (ite (and (= x!0 1008) (= x!1 1003) (= x!2 "a")) true
+    (ite (and (= x!0 1002) (= x!1 1007) (= x!2 "a")) true
+    (ite (and (= x!0 1001) (= x!1 1004) (= x!2 "a")) true
+    (ite (and (= x!0 1000) (= x!1 1001) (= x!2 "b")) true
+    (ite (and (= x!0 1008) (= x!1 1002) (= x!2 "b")) true
+    (ite (and (= x!0 1000) (= x!1 1000) (= x!2 "b")) true
+    (ite (and (= x!0 1004) (= x!1 1007) (= x!2 "b")) true
+    (ite (and (= x!0 1008) (= x!1 1008) (= x!2 "b")) true
+    (ite (and (= x!0 1007) (= x!1 1003) (= x!2 "b")) true
+      false)))))))))))
+)

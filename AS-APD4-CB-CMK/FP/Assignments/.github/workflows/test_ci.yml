@@ -1,0 +1,38 @@
+name: Test Week Assignments CI
+
+on:
+  push:
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "elm.json"
+      - ".github/workflows/test_ci.yml"
+  pull_request:
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "elm.json"
+      - ".github/workflows/test_ci.yml"
+
+jobs:
+  AssignmentTests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Elm
+        run: |
+          curl -L -o elm.gz https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz
+          gunzip elm.gz
+          chmod +x elm
+          sudo mv elm /usr/local/bin/
+          elm --help
+
+      - name: Install Test Depedencies
+        run: npm install elm-test -g
+
+      - name: Run tests
+        run: elm-test >> testResult
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./testResult
