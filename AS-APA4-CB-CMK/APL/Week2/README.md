@@ -2,7 +2,7 @@
 
 *By Arthur ADAM and Robin LOTODE*
 
-**Please not that every file mentioned in this PDF file is provided in the Canvas Submission.**
+**Please note that every file mentioned in this PDF file is provided in the Canvas Submission.**
 
 ## Part 1 - 8queens Problem
 
