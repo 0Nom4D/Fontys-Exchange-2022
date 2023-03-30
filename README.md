@@ -6,7 +6,7 @@ I met friends and collegues and we worked on what we needed to do.
 
 ## Disclaimer
 
-If you are a Fontys Student registered in Advanced Computer Science or in one the following courses:
+If you are a Fontys Student registered in Advanced Computer Science / Smart Mobile Development or in one the following courses:
 
 - ALG1
 - ALG2
@@ -34,6 +34,7 @@ You can access each folder by clicking on any link below:
 - [AS-APB4-CB-CMK](./AS-APB4-CB-CMK)
 - [AS-APC4-CB-CMK](./AS-APC4-CB-CMK)
 - [AS-APD4-CB-CMK](./AS-APD4-CB-CMK)
+- [SM4-SM-RB01](./SM4-SM-RB01/)
 
 ## Authors
 
