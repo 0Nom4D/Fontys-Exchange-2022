@@ -1,0 +1,28 @@
+{
+  "title": "Arthur's Series",
+  "@title": {
+    "description": "Title of the app displayed in AppBar"
+  },
+  "carefulMessage": "Be careful in France! You may encounter angry honest citizens!",
+  "primeVideo": "Prime Video",
+  "las_cumbres": "The Boarding School: Las Cumbres",
+  "terminal_list": "The Terminal List",
+  "maisel": "The Marvelous Mrs. Maisel",
+  "tlou": "The Last Of Us",
+  "motherland": "Motherland: Fort Salem",
+  "star_trek_ld": "Star Trek: Lower Decks",
+  "vox_machina": "The Legend of Vox Machina",
+  "the_boys": "The Boys",
+  "invincible": "Invincible",
+  "cruel_summer": "Cruel Summer",
+  "las_cumbres_desc": "Las Cumbres Boarding School is an impenetrable fortress built on the edge of a cliff where students are subjected to strict discipline and it seems impossible to escape. However, two of them manage to, but things take a turn for the worse because surviving outside the school is even more dangerous than inside and the woods are much more terrifying.",
+  "terminal_list_desc": "Navy SEAL Commander James Reece turns to vengeance as he investigates the mysterious forces behind the murder of his entire platoon. Reece applies the lessons he’s learned from nearly two decades of warfare to hunt down the people responsible.",
+  "maisel_desc": "In 1958 New York, Midge Maisel’s life is on track– husband, kids, and elegant Yom Kippur dinners in their Upper West Side apartment. But when her life takes a surprise turn, going from housewife to stand-up comic is a wild choice to everyone but her.",
+  "tlou_desc": "20 years after modern civilization has been destroyed, Joel, a hardened survivor, is hired to smuggle Ellie, a 14-year-old girl, out of an oppressive quarantine zone. Based on the game serie THE LAST OF US.",
+  "motherland_desc": "May 1693, in Salem, the trial of the Salem witches takes place. On the day of the execution, the witches make a deal: \"Let us live and we will defend you\". In 2020, Raelle, Tally and Abigail join the military to fight terrorist threats.",
+  "star_trek_ld_desc": "On one of Starfleet’s least important ships, the U.S.S. Cerritos, in 2380, Ensigns Mariner, Boimler, Rutherford and Tendi have to keep up with their duties and their social lives, often while the ship is being rocked by a multitude of sci-fi anomalies.",
+  "vox_machina_desc": "Vox Machina is more interested in easy money and cheap ale than actually protecting the realm. But when the kingdom is threatened by evil, this boisterous crew realizes that they are the only ones capable of restoring justice.",
+  "the_boys_desc": "In a world where superheroes embrace the darker side of their massive celebrity and fame, \"The Boys\" is a group of vigilantes who set out to take down corrupt superheroes with no more than their blue collar grit and a willingness to fight dirty.",
+  "invincible_desc": "Invincible revolves around 17-year-old Mark Grayson, who’s just like every other guy his age — except his father is the most powerful superhero on the planet, Omni-Man. As Mark develops powers of his own, he discovers his father’s legacy may not be as heroic as it seems.",
+  "cruel_summer_desc": "Cruel Summer is a psychological thriller that follows two young women; Kate, the popular girl with a charmed life who one day goes missing, and Jeanette, the nerdy wannabe who is accused of being connected to Kate’s disappearance."
+}

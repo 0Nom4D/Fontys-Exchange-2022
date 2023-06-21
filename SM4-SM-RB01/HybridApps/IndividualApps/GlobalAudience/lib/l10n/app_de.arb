@@ -1,0 +1,28 @@
+{
+  "title": "Arthurs Serien",
+  "@title": {
+    "description": "Titel der in Appbar angezeigten App"
+  },
+  "carefulMessage": "Sei vorsichtig in Frankreich! Sie können wütende ehrliche Bürger begegnen!",
+  "primeVideo": "Prime Video",
+  "las_cumbres": "Das Internat: Las Cumbres",
+  "terminal_list": "Die Abschullliste",
+  "maisel": "The Marvelous Mrs. Maisel",
+  "tlou": "The Last Of Us",
+  "motherland": "Motherland: Fort Salem",
+  "star_trek_ld": "Star Trek: Lower Decks",
+  "vox_machina": "The Legend of Vox Machina",
+  "the_boys": "The Boys",
+  "invincible": "Invincible",
+  "cruel_summer": "Cruel Summer",
+  "las_cumbres_desc": "Das Internat von Las Cumbres ist eine Festung, in der die Schüler einer eisernen Disziplin unterworfen sind und aus der es unmöglich scheint, zu entkommen. Trotzdem gelingt es zweien eines Nachts, aber alles geht schief, denn das Überleben in der Nähe des Internats ist viel gefährlicher als innerhalb und der Wald viel furchteinflößender.",
+  "terminal_list_desc": "Lt. Commander James Reece sinnt auf Rache, als er die mysteriösen Kräfte untersucht, die hinter dem Mord an seinem gesamten Zug stecken. Frei von der Kommandostruktur des Militärs wendet Reece die Lektionen an, die er in fast zwei Jahrzehnten Kriegsführung gelernt hat, um die Verantwortlichen zur Strecke zu bringen.",
+  "maisel_desc": "New York 1958, das Leben der Midge Maisel läuft wie geschmiert: Ehemann, Kinder und elegante Jom-Kippur-Dinner in deren Wohnung an der Upper West Side. Eine überraschende Wendung des Schicksals zwingt sie, der Schritt von Hausfrau zur Stand-Up-Comedian überrascht alle, bis auf sie.",
+  "tlou_desc": "20 Jahre nachdem die moderne Zivilisation zerstört wurde, wird Joel, ein verhärteter Überlebender, mit der Schmuggelin von Ellie, einem 14-jährigen Mädchen, aus einer unterdrückerischen Quarantänenzone ein. Basierend auf der Spielerie die letzte von uns.",
+  "motherland_desc": "Im Mai 1693 findet in Salem der Prozess gegen die Hexen von Salem statt. Am Tag der Hinrichtung schließen die Hexen einen Deal: \"Lasst uns leben und wir werden euch verteidigen\". Im Jahr 2020 treten Raelle, Tally und Abigail in die Armee ein, um gegen terroristische Bedrohungen zu kämpfen.",
+  "star_trek_ld_desc": "Auf einem der am wenigsten wichtigen Schiffe der Starfleets, der USA Cerritos, 2380, Ensigns Mariner, Boimler, Rutherford und Tendi müssen mit ihren Pflichten und ihrem sozialen Leben Schritt halten, während das Schiff von einer Vielzahl von Science-Fi-Anomalien erschüttert wird.",
+  "vox_machina_desc": "Vox Machina ist eine rauflustige, bunt zusammengewürfelte Truppe von Außenseitern, die als Söldner durch die Lande ziehen. Schnellverdienter Lohn und billiges Gesöff interessiert sie mehr als der Kampf für Recht und Ordnung. Doch als das Königreich vom Bösen bedroht wird, sind sie die Einzigen, die es jetzt noch beschützen können.",
+  "the_boys_desc": "The Boys ist eine respektlose Variante von Superhelden, berühmt wie Stars, einflussreich wie Politiker und verehrt wie Götter, die ihre Superkräfte missbrauchen, anstatt Gutes zu tun. The Boys nimmt uns mit auf eine heroische Suche, um die Wahrheit über die Seven und Vought aufzudecken.",
+  "invincible_desc": "Invincible dreht sich um den 17-jährigen Mark Grayson, der genau wie jeder andere Mann in seinem Alter ist-außer dass sein Vater der mächtigste Superheld auf dem Planeten ist, Omni-Man. Während Mark seine eigenen Kräfte entwickelt, entdeckt er, dass das Vermächtnis seines Vaters nicht so heldenhaft ist, wie es scheint.",
+  "cruel_summer_desc": "Cruel Summer ist ein psychologischer Thriller, der zwei junge Frauen folgt. Kate, das beliebte Mädchen mit einem bezaubernden Leben, das eines Tages vermisst wird, und Jeanette, die nerdige Möchtegern, der beschuldigt wird, mit Kates Verschwinden verbunden zu sein."
+}
