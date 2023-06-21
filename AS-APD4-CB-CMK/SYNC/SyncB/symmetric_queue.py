@@ -1,41 +1,38 @@
-import threading
+from Environment import *
 
-n_followers = 4
-n_leaders = 4
+nb_followers = 5
+nb_leaders = 5
 
-tf_status = [False for _ in range(n_followers)]
-followerQueue = threading.Semaphore(0)
+leader_pipet = MySemaphore(1, "Leader Pipet")
+follower_pipet = MySemaphore(1, "Follower Pipet")
 
-tl_status = [False for _ in range(n_leaders)]
-leadersQueue = threading.Semaphore(0)
+leader_semaphore = MySemaphore(0, "Leader waiting")
+follower_semaphore = MySemaphore(0, "Follower waiting")
 
-rendezvous = threading.Semaphore(0)
+def follower_thread():
+    while True:
+        follower_pipet.wait()
 
-def work_followers(number: int):
-    tf_status[number] = True
-    if followers > 0:
-        followers -= 1
-        followerQueue.signal()
-    else:
-        leaders += 1
-        leadersQueue.wait()
-    rendezvous.wait()
+        follower_semaphore.signal()
+        leader_semaphore.wait()
 
-def work_leaders(number: int):
-    tl_status[number] = True
-    if leaders > 0:
-        leaders -= 1
-        leadersQueue.signal()
-    else:
-        followers += 1
-        followerQueue.wait()
-    rendezvous.signal()
+        print("Follower goes dancing.")
 
-threads = [
-        threading.Thread(target=work_followers, args=(0, ))
-    ]
+        follower_pipet.signal()
 
-for i in threads:
-    i.start()
-for i in threads:
-    i.join()
+def leader_thread():
+    while True:
+        leader_pipet.wait()
+
+        follower_semaphore.wait()
+        leader_semaphore.signal()
+
+        print("Leader goes dancing.")
+
+        leader_pipet.signal()
+
+def setup():
+    for _ in range(nb_followers):
+        subscribe_thread(follower_thread)
+    for _ in range(nb_leaders):
+        subscribe_thread(leader_thread)

@@ -14,13 +14,8 @@ def Hydrogen():
     while True:
         hydrogenPipet.wait()
 
-        ## Signaling One hydrogen and One Oxygen
-        hydrogenSemaphore.signal()
+        hydrogenSemaphore.wait()
         oxygenSemaphore.signal()
-
-        ## Waiting for 2 signal of hydrogen (Oxygen class making it)
-        hydrogenSemaphore.wait()
-        hydrogenSemaphore.wait()
 
         hydrogenPipet.signal()
 
@@ -29,12 +24,9 @@ def Oxygen():
     while True:
         oxygenPipet.wait()
 
-        ## Signaling Hydrogens
         hydrogenSemaphore.signal()
         hydrogenSemaphore.signal()
 
-        ## Waiting for 2 signal of oxygenSemaphore
-        oxygenSemaphore.wait()
         oxygenSemaphore.wait()
 
         oxygenPipet.signal()

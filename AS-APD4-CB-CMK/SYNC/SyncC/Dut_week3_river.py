@@ -2,12 +2,17 @@ from Environment import *
 
 maxSerf = MyInt(5, "Max number of Serf Threads")
 maxHacker = MyInt(5, "Max number of Hacker Threads")
+
 serfCounter = MyInt(0, "Serf Counter")
 hackerCounter = MyInt(0, "Hacker Counter")
+
 hQueue = MySemaphore(0, "Hacker queue")
 sQueue = MySemaphore(0, "Serf queue")
+
 boatBarrier = MySemaphore(4, "Boat Barrier")
+
 mutex = MySemaphore(1, "Filling Boat Mutex")
+
 isCaptain = MyBool(False, "Bool for Captain Status")
 
 def hackerLoop():
@@ -20,8 +25,8 @@ def hackerLoop():
             hackerCounter.v = 0
             isCaptain.v = True
         elif hackerCounter.v == 2 and serfCounter.v >= 2:
-            hQueue.release(2)
-            sQueue.release(2)
+            hQueue.wait(2)
+            sQueue.wait(2)
             hackerCounter.v = 0
             serfCounter.v -= 2
             isCaptain.v = True
@@ -45,8 +50,8 @@ def serfLoop():
             serfCounter.v = 0
             isCaptain.v = True
         elif hackerCounter.v >= 2 and serfCounter.v == 2:
-            hQueue.release(2)
-            sQueue.release(2)
+            hQueue.wait(2)
+            sQueue.wait(2)
             hackerCounter.v -= 2
             serfCounter.v = 0
             isCaptain.v = True

@@ -1,67 +1,65 @@
 from Environment import *
 
-maxWriters = 7
-maxReaders = 7
+ressourceMutex = MyMutex("Mutex")
 
-mutex = MyMutex("Mutex")
-
-writerPriority = MyBool(True, "Writer Priority")
+isWriterWriting = MyBool(False, "Writer's Writing State")
 wBusyCount = MyInt(0, "Number of writers waiting")
 rBusyCount = MyInt(0, "Number of readers waiting")
-criticalData = MyInt(0, "Critical Data")
 
-writersCV = MyConditionVariable(mutex,
-"Conditional Variable for Writers")
-readersCV = MyConditionVariable(mutex,
-"Conditional Variable for Readers")
+ressourceCV = MyConditionVariable(
+    ressourceMutex, "Conditional Variable for Shared Ressource"
+)
 
 def doReading():
-    print(f"Reader reads critical data having value {criticalData.v}.")
+    print(f"Reader is reading.")
 
 def doWriting():
-    criticalData.v += 1
-    print(f"Writer modified critical data to {criticalData.v}.")
-
-def isAnyoneBusy():
-    return not rBusyCount.v and not wBusyCount.v
-
-def notifyPriority():
-    if not isAnyoneBusy():
-        if writerPriority.v:
-            writersCV.notify_all()
-            readersCV.notify_all()
-        else:
-            readersCV.notify_all()
-            writersCV.notify_all()
+    print(f"Writer is writing.")
 
 def readersLoop():
     while True:
-        mutex.wait()
-        while wBusyCount.v != 0:
-            readersCV.wait()
+        ressourceMutex.wait()
+
+        ## Checking writer's priority (if writer is about to write / is writing, waits)
+        while wBusyCount.v > 0 or isWriterWriting.v:
+            ressourceCV.wait()
         rBusyCount.v += 1
-        mutex.signal()
+        ressourceMutex.signal()
+
         doReading()
-        mutex.wait()
+
+        ressourceMutex.wait()
         rBusyCount.v -= 1
-        notifyPriority()
-        mutex.signal()
+
+        ## Notifies all threads to check if condition has changed
+        if not rBusyCount.v:
+            ressourceCV.notify_all()
+        ressourceMutex.signal()
 
 def writersLoop():
     while True:
-        mutex.wait()
-        while rBusyCount.v != 0:
-            readersCV.wait()
+        ressourceMutex.wait()
+
+        ## Telling program that a writer is waiting
+        isWriterWriting.v = True
+        while rBusyCount.v > 0 or wBusyCount.v > 0:
+            ressourceCV.wait()
+
+        ## Telling program that a writer doesn't wait anymore
+        isWriterWriting.v = False
         wBusyCount.v += 1
-        mutex.signal()
         doWriting()
-        mutex.wait()
+        ressourceMutex.signal()
+
+        ressourceMutex.wait()
         wBusyCount.v -= 1
-        notifyPriority()
-        mutex.signal()
+
+        ## Notifies all threads to check if condition has changed
+        ressourceCV.notify_all()
+        ressourceMutex.signal()
 
 def setup():
-    for _ in range(maxWriters):
+    for _ in range(7):
         subscribe_thread(readersLoop)
-    for _ in range(maxReaders):
+    for _ in range(7):
         subscribe_thread(writersLoop)

@@ -1,68 +1,84 @@
 from Environment import *
 
-maxCanivoreCooks = 5
-maxVegetarianCooks = 5
-maxCanivoreSavages = 5
-maxVegetarianSavages = 5
-
-mutex = MyMutex("Mutex")
-
+bagMutex = MyMutex("Bag Mutex")
 servingsList = MyBag(6, "All servings")
-vegePotVariable = MyConditionVariable(
-    mutex, "Conditional Variable for Vegetarian"
-)
-carnPotVariable = MyConditionVariable(
-    mutex, "Conditional Variable for Canivore"
-)
+
+vegeSavageMutex = MyMutex("Vege Savage")
+vegePotVariable = MyConditionVariable(vegeSavageMutex, "Vege Cond")
+vegeCookTrigger = MySemaphore(0, "Vege Cook Trigger")
+
+carnSavageMutex = MyMutex("Carn Savage")
+carnPotVariable = MyConditionVariable(carnSavageMutex, "Carn Cond")
+carnCookTrigger = MySemaphore(0, "Carn Cook Trigger")
 
 def CanivoreSavages():
     while True:
-        mutex.wait()
-        print("Waiting until a carnivore servings is available.")
+        carnSavageMutex.wait()
+
+        ## Triggers the vegetarian cook to make a carnivore serving
+        carnCookTrigger.signal()
+
+        ## Checks and wait for the bag to contain a carnivore serving
+        bagMutex.wait()
         while not servingsList.contains("CARNIVORE"):
+            bagMutex.signal()
             carnPotVariable.wait()
-        print("Removing a carnivore meal")
+            bagMutex.wait()
+
+        ## Removing the carnivore serving, still being inside the mutex lock
         servingsList.get("CARNIVORE")
-        carnPotVariable.notify()
-        mutex.signal()
+        bagMutex.signal()
+        carnSavageMutex.signal()
 
 def VegeSavages():
     while True:
-        mutex.wait()
-        print("Waiting until a veggie servings is available.")
+        vegeSavageMutex.wait()
+
+        ## Triggers the vegetarian cook to make a veggie serving
+        vegeCookTrigger.signal()
+
+        ## Checks and wait for the bag to contain a veggie serving
+        bagMutex.wait()
         while not servingsList.contains("VEGGIE"):
+            bagMutex.signal()
             vegePotVariable.wait()
-        print("Removing a veggie meal")
+            bagMutex.wait()
+
+        ## Removing the veggie serving, still being inside the mutex lock
         servingsList.get("VEGGIE")
-        vegePotVariable.notify()
-        mutex.signal()
+        bagMutex.signal()
+        vegeSavageMutex.signal()
 
 def CanivoreCook():
     while True:
-        mutex.wait()
-        print("Checks if there already is a carnivore meal.")
-        while servingsList.contains("CARNIVORE"):
-            carnPotVariable.wait()
-        print("Making a carnivore meal")
+        ## Waiting to be triggered
+        carnCookTrigger.wait()
+
+        ## Cooking a carnivore serving
+        bagMutex.wait()
         servingsList.put("CARNIVORE")
-        carnPotVariable.notify()
-        mutex.signal()
+        bagMutex.signal()
+
+        ## Notifying Savages for a new carnivore serving
+        carnPotVariable.notify_all()
 
 def VegeCook():
     while True:
-        mutex.wait()
-        print("Checking if there already is a veggie meal")
-        while servingsList.contains("VEGGIE"):
-            vegePotVariable.wait()
-        print("Making a veggie meal")
+        ## Waiting to be triggered
+        vegeCookTrigger.wait()
+
+        ## Cooking a veggie serving
+        bagMutex.wait()
         servingsList.put("VEGGIE")
-        vegePotVariable.notify()
-        mutex.signal()
+        bagMutex.signal()
+
+        ## Notifying Savages for a new veggie serving
+        vegePotVariable.notify_all()
 
 def setup():
     subscribe_thread(VegeCook)
     subscribe_thread(CanivoreCook)
-    for i in range(maxCanivoreSavages):
+    for _ in range(5):
         subscribe_thread(CanivoreSavages)
-    for i in range(maxVegetarianSavages):
+    for _ in range(5):
         subscribe_thread(VegeSavages)

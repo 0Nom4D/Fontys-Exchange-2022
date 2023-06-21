@@ -1,27 +1,28 @@
-import threading
+from Environment import *
 
 n = 4 # Number of threads
 
-mutex = threading.Lock()
+m = MyMutex("Mutex")
+
 tt = [False for _ in range(n)]
 tt2 = [False for _ in range(n)]
 
 def work(number: int):
-    print("ayo")
     tt[number] = True
     while not all(tt):
-        pass
+        ...
 
     # critical point
+    m.wait()
     print("critical point")
+    m.signal()
 
     tt2[number] = True
     while not all(tt2):
-        pass
-    print("ayo2")
+        ...
 
-threads = [threading.Thread(target=work, args=(i, )) for i in range(n)]
-for i in threads:
-    i.start()
-for i in threads:
-    i.join()
+def setup():
+    subscribe_thread(lambda: work(0))
+    subscribe_thread(lambda: work(1))
+    subscribe_thread(lambda: work(2))
+    subscribe_thread(lambda: work(3))

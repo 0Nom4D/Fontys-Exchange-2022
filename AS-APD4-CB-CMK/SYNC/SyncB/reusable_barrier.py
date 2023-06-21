@@ -1,30 +1,33 @@
-import threading
+from Environment import *
 
 n = 4 # Number of threads
 
-tt = [threading.Semaphore(0) for _ in range(n)]
-tt2 = [threading.Semaphore(0) for _ in range(n)]
+m = MyMutex("Mutex 1")
+tt = [MySemaphore(0, f"Semaphore 1 - {_}") for _ in range(n)]
+tt2 = [MySemaphore(0, f"Semaphore 2 - {_}") for _ in range(n)]
 
 def work(number: int):
-    print("ayo")
-    tt[number].release()
-    for i in range(n):
-        tt[i].acquire()
-    for i in range(n):
-        tt[i].release()
+    while True:
+        tt[number].signal()
+        print(number)
+        for i in range(n):
+            tt[i].wait()
+        for i in range(n):
+            tt[i].signal()
 
-    # critical point
-    print("critical point")
+        # critical point
+        m.wait()
+        print("critical point")
+        m.signal()
 
-    tt2[number].release()
-    for i in range(n):
-        tt2[i].acquire()
-    for i in range(n):
-        tt2[i].release()
-    print("ayo2")
+        tt2[number].signal()
+        for i in range(n):
+            tt2[i].wait()
+        for i in range(n):
+            tt2[i].signal()
 
-threads = [threading.Thread(target=work, args=(i, )) for i in range(n)]
-for i in threads:
-    i.start()
-for i in threads:
-    i.join()
+def setup():
+    subscribe_thread(lambda: work(0))
+    subscribe_thread(lambda: work(1))
+    subscribe_thread(lambda: work(2))
+    subscribe_thread(lambda: work(3))

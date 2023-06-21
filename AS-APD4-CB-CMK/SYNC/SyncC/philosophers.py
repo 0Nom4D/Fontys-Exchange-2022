@@ -1,15 +1,15 @@
-from threading import Lock, Semaphore, Thread
+from Environment import *
 
 n = 5
 
-footman = Lock()
+footman = MySemaphore(4, "mutex")
 
 philosophers = [
-    Semaphore(1),
-    Semaphore(1),
-    Semaphore(1),
-    Semaphore(1),
-    Semaphore(1),
+    MySemaphore(1, "Semaphore 1"),
+    MySemaphore(1, "Semaphore 2"),
+    MySemaphore(1, "Semaphore 3"),
+    MySemaphore(1, "Semaphore 4"),
+    MySemaphore(1, "Semaphore 5"),
 ]
 
 def diningLoop(idx: int):
@@ -21,14 +21,14 @@ def diningLoop(idx: int):
         return (i + 1) % n
 
     def getForks(i):
-        footman.acquire()
-        philosophers[right(i)].acquire()
-        philosophers[left(i)].acquire()
+        footman.wait()
+        philosophers[right(i)].wait()
+        philosophers[left(i)].wait()
 
     def putForks(i):
-        philosophers[right(i)].release()
-        philosophers[left(i)].release()
-        footman.release()
+        philosophers[right(i)].signal()
+        philosophers[left(i)].signal()
+        footman.signal()
 
     while True:
         print(f"Philosopher n°{idx} is thinking.")
@@ -37,9 +37,9 @@ def diningLoop(idx: int):
         putForks(idx)
 
 
-if __name__ == "__main__":
-    threads = [Thread(target=diningLoop, args=(i, )) for i in range(n)]
-    for thread in threads:
-        thread.start()
-    for thread in threads:
-        thread.join()
+def setup():
+    subscribe_thread(lambda: diningLoop(0))
+    subscribe_thread(lambda: diningLoop(1))
+    subscribe_thread(lambda: diningLoop(2))
+    subscribe_thread(lambda: diningLoop(3))
+    subscribe_thread(lambda: diningLoop(4))
