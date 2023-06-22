@@ -67,3 +67,4 @@ You can find the code [here](./IndustryProject).
 ## Authors
 
 - [0Nom4D](https://github.com/0Nom4D), Student in EPITECH Paris
+- [Mikeyy01](https://github.com/Mikeyy01), Student in Fontys University of Applied Sciences of Eindhoven
