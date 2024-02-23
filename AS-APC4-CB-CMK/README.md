@@ -32,4 +32,4 @@ You will find the ressource related to this course [here](./DETH/).
 ## Authors
 
 - [0Nom4D](https://github.com/0Nom4D), Student at EPITECH Nantes
-- [Huntears](https://github.com/huntears), Student at EPITECH Toulouse
+- [huntears](https://github.com/huntears), Student at EPITECH Toulouse
