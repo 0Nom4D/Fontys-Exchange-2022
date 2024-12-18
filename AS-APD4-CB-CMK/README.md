@@ -45,5 +45,5 @@ You will find the ressource related to this course [here](./SYNC/).
 ## Authors
 
 - [0Nom4D](https://github.com/0Nom4D), Student in EPITECH Paris
-- [huntears](https://github.com/huntears), Student in EPITECH Toulouse
+- [emneo](https://github.com/emneo-dev), Student in EPITECH Toulouse
 - [Robibibi](https://github.com/Robibibi), Student in ESME Paris

@@ -1,6 +1,6 @@
 # Assignment 4: Peking Express
 
-*This assignments has been done with [Alexandre FLION](https://github.com/huntears) from EPITECH Toulouse during our Fontys Exchange.*
+*This assignments has been done with [Emily FLION](https://github.com/emneo-dev) from EPITECH Toulouse during our Fontys Exchange.*
 
 The goal of this assignment is to make an AI playing a Peking Express game and choosing the fastest path to node 88.
 
