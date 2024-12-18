@@ -43,5 +43,5 @@ You will find the ressource related to this course [here](./AUT/).
 ## Authors
 
 - [0Nom4D](https://github.com/0Nom4D), Student at EPITECH Nantes
-- [huntears](https://github.com/huntears), Student at EPITECH Toulouse
+- [emneo](https://github.com/emneo-dev), Student at EPITECH Toulouse
 - [Robibibi](https://github.com/Robibibi), Student at ESME Paris

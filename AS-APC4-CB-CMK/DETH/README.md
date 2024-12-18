@@ -1,6 +1,6 @@
 # DETH Project
 
-Students: Alexandre FLION, Arthur ADAM
+Students: Emily FLION, Arthur ADAM
 
 *Please note that we didn't make a Jupyter Notebook since our program is developed using C / C++ with shared libraries.*
 
